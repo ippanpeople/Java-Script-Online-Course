@@ -1,21 +1,25 @@
-var optionSelect = document.getElementById('option-select');
+{
+    let optionSelect = document.getElementById('option-select')
+    let bt = document.getElementById('submit-btn')
 
+    bt.addEventListener('click', function() {
+        let option = optionSelect.value
+        let currency = document.getElementById('currency').value
+        let result = document.getElementById('result')
 
-var submitBtn = document.getElementById('submit-btn');
+        // console.log(currency + option)
 
-submitBtn.addEventListener('click', function() {
-	var option = optionSelect.value;
-	var currency = document.getElementById('currency').value;
-	var result = document.getElementById('result');	
+        if(isNaN(currency) === true || currency === ''){
+            result.innerHTML = '<h4>ERROR!!</h4>'
+        }else{
+            if(option === 'nt2us'){
+                currency = parseFloat(currency) / 30
+                result.innerHTML = '<h4>US' + currency.toFixed(2) + '</h4>'
+            }else{
+                currency = parseFloat(currency) * 30
+                result.innerHTML = '<h4>NT' + currency.toFixed(2) + '</h4>'
+            }
+        }
+    })
 
-	if(currency === NaN || currency === '') {
-		result.innerHTML = '請輸入正確數字！';
-	} else if (option === 'nt2us') {
-		var outcome = parseFloat(currency) / 30;
-		result.innerHTML = 'US ' + outcome.toFixed(2); 
-	} else if(option === 'us2nt') {
-		var outcome = parseFloat(currency) * 30;
-		result.innerHTML = 'TW ' + outcome.toFixed(2);
-	}
-
-});
+}
