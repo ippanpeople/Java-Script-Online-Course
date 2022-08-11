@@ -1,67 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MosquitoFight</title>
-	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
-	<div id="info">
-		<span>Score:</span><span id="score-board">0</span>
+	<div id="id">
+		<span>Score:</span><span id="score">0</span>
 		<span>Time:</span><span id="counter"></span>
 	</div>
-	<script type="text/javascript">
-		var score = 0;
-		var countdown = 10;
-
-		var timer = setInterval(function() {
-			var gameOver = false;
-
-			if(document.getElementById('mosquito') === null && gameOver !== true) {
-				var mosquito = document.createElement('img');
-				mosquito.src = './images/mosquito.png';
-				mosquito.style.position = 'absolute';
-				var x = Math.floor(Math.random() * window.innerWidth);
-				var y = Math.floor(Math.random() * window.innerHeight);
-				console.log(window.innerWidth);
-
-				mosquito.style.top = y + 'px';
-				mosquito.style.left = x + 'px';
-
-				mosquito.id = 'mosquito';
-				document.body.appendChild(mosquito);
-			}
-
-			countdown -= 1;
-
-			document.getElementById('counter').innerHTML = countdown;
-
-			if(countdown <= 0) {
-				gameOver = true;
-				clearInterval(timer);
-				clearInterval(disappear);
-				document.getElementById('counter').innerHTML = 'Game Over!!';
-			}
-
-		}, 1000);
-
-		var disappear = setInterval(function() {
-			if(document.getElementById('mosquito') !== null){
-				document.body.removeChild(document.getElementById('mosquito'));
-			}
-		}, 3000);
-
-		document.body.addEventListener('click', function(e) {
-			var scoreBoard = document.getElementById('score-board');
-
-			if(e.target.id === 'mosquito') {
-				console.log(e.target);
-				e.target.parentNode.removeChild(e.target);
-				score += 5;
-
-				alert('kill');
-				scoreBoard.innerHTML = score;
-			}
-		});
-	</script>
 </body>
+<script>
+	let score = 0
+	let countdown = 10
+	let timer = setInterval(function(){
+		let gameOver = false
+
+		//如果沒有畫面中沒有蚊子 且 遊戲還沒結束
+		if(document.getElementById('mosquito') === null && gameOver !== true){
+			//則產生蚊子img
+			let mosquito = document.createElement('img')
+
+			mosquito.src = './images/mosquito.png'
+
+			let x = Math.floor(Math.random() * window.innerHeight)
+			let y = Math.floor(Math.random() * window.innerWidth)
+			mosquito.style.position = 'absolute'
+			mosquito.style.top = x + 'px'
+			mosquito.style.left = y + 'px'
+
+			mosquito.id = 'mosquito'
+			document.body.appendChild(mosquito)
+		}
+
+		countdown -= 1
+		document.getElementById('counter').innerHTML = countdown
+		if(countdown <= 0){
+			gameOver = true
+			clearInterval(timer)
+			clearInterval(disappear)
+			document.getElementById('counter').innerHTML = "GAME OVER!!"
+			document.body.removeChild(mosquito)
+		}
+
+	}, 1000)
+
+	let disappear = setInterval(function(){
+		if(document.getElementById('mosquito') !== null){
+			document.body.removeChild(mosquito)
+		}
+	}, 3000)
+
+	document.body.addEventListener('click', function(e){
+		let scores = document.getElementById('score')
+
+		//如果點擊到的物件
+		if(e.target.id === 'mosquito'){
+			e.target.parentNode.removeChild(e.target)
+			// e.target.body.removeChild(e.target)
+			
+			scores.innerHTML = parseInt(scores.innerHTML) + 5
+		}
+	})
+</script>
 </html>
