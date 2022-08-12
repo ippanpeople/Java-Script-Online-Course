@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Slideshow</title>
+	<style>
+		.fade {
+			animation-name: fade;
+			animation-duration: 2s;
+		}
+		@keyframes fade{
+			from {
+				opacity: 0.4;
+			}to{
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>Slideshow</h1>
+	<div class="slideshow-container">
+		<div class="slide fade">
+			<img src="./1.jpg">
+			<div>1</div>
+		</div>
+	</div>
+	<div class="slideshow-container">
+		<div class="slide fade">
+			<img src="./2.jpg">
+			<div>2</div>
+		</div>
+	</div>
+	<div class="slideshow-container">
+		<div class="slide fade">
+			<img src="./3.jpg">
+			<div>3</div>
+		</div>
+	</div>
+	<a id="prev">Prev</a>
+	<a id="next">Next</a>
+</body>
+<script> 
+	let index = 1
+	
+	function show(index){
+		let slides = document.querySelectorAll('.slide')
+		for(let i = 0; i < slides.length; i++){
+			slides[i].style.display = 'none'
+		}
+		slides[index - 1].style.display = 'block'
+	}
+	function next(num){
+		if(index === 1 && num === -1){
+			index = 3
+			show(index)
+			console.log(show(index))
+		}else if(index === 3 && num === 1){
+			index = 1
+			show(index)
+			console.log(show(index))
+		}else {
+			index += num
+			show(index)
+			console.log(show(index))
+		}
+	}
+	document.getElementById('prev').addEventListener('click', function(e){
+		next(-1)
+	})
+	document.getElementById('next').addEventListener('click', function(e){
+		next(1)
+	})
+
+	show(index)
+</script>
+</html>

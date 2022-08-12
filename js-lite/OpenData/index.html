@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>OpenData</title>
+</head>
+<body>
+	<div id="result">
+		<img src="./loading.gif" id="loading">
+	</div>
+</body>
+<script>
+	let xhr = new XMLHttpRequest()
+	let url = "https://jsonplaceholder.typicode.com/photos"
+	let loading = document.getElementById('loading')
+	xhr.open('GET', url)
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			console.log(xhr.responseText)
+			loading.style.display = 'none'
+			let data = JSON.parse(xhr.responseText)
+			// console.log(data[0].title)
+			data.forEach(function(value, index) {
+				let image = document.createElement('img')
+				image.src  = data[index].url
+				console.log(data[index].url)
+				document.getElementById('result').appendChild(image)
+			});
+		}
+	}
+	xhr.send()
+</script>
+</html>

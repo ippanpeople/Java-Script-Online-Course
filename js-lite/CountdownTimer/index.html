@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CountdownTimer</title>
+</head>
+<body>
+    <h1>CountdownTimer</h1>
+    <div id="result"></div>
+</body>
+<script>
+    let timer = setInterval(function(){
+        let endDate = '2022-08-10 13:00'
+        let countdown = new Date(endDate).getTime()
+        let now = new Date().getTime()
+        let distance = countdown - now
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24)) // 還剩幾天
+        let hours = Math.floor(distance % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) // 還剩幾小時
+        let mins = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60)) // 還剩幾分
+        let secs = Math.floor(distance % (1000 * 60) / (1000)) // 還剩幾秒
+        let result = document.getElementById('result')
+        result.innerHTML = "距離" + endDate + "剩下" + days + "天" + hours + "小時" + mins + "分" + secs + "秒"
+
+        if(distance < 0){
+            clearInterval(timer)
+            result.innerHTML = "時間到了"
+        }
+
+    }, 1000)
+</script>
+</html>
